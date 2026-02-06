@@ -1,0 +1,10 @@
+server:
+  port: 9200
+
+spring:
+  profiles:
+    active: dev
+#    active: prod # 测试环境下将日志输出到文件 ./log/date.log
+#  jackson:
+#    default-property-inclusion: non_null
+#    date-format: yyyy-MM-dd HH:mm:ss

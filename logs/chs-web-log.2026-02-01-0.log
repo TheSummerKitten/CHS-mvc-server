@@ -1,0 +1,290 @@
+2026-02-01 15:45:52.799 [main] INFO  com.kitten.chs.common.CHSApplication - Starting CHSApplication using Java 17.0.14 on LAPTOP-FC1VQ3PG with PID 41512 (D:\finalDesign\project\chs-mvc-server\chs-web\target\classes started by kitten in D:\finalDesign\project\chs-mvc-server)
+2026-02-01 15:45:52.801 [main] INFO  com.kitten.chs.common.CHSApplication - The following 1 profile is active: "prod"
+2026-02-01 15:45:53.457 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9200 (http)
+2026-02-01 15:45:53.463 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-01 15:45:53.463 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-02-01 15:45:53.535 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-02-01 15:45:53.535 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 693 ms
+2026-02-01 15:45:53.809 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 9200 (http) with context path ''
+2026-02-01 15:45:53.817 [main] INFO  com.kitten.chs.common.CHSApplication - Started CHSApplication in 1.346 seconds (JVM running for 1.91)
+2026-02-01 15:45:53.820 [main] INFO  com.kitten.chs.common.CHSApplication - 💉💉💉CHS Server 启动成功!!! 💉💉💉
+[TraceId: ] 2026-02-01 17:14:13.025 [main] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.IllegalStateException: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:344)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:298)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:246)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:223)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:171)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:145)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:133)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:85)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:66)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:120)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:114)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:65)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:344)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1289)
+	at com.kitten.chs.web.CHSApplication.main(CHSApplication.java:17)
+Caused by: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reportConfigurationErrorsIfNecessary(LogbackLoggingSystem.java:189)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:170)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithSpecificConfig(AbstractLoggingSystem.java:66)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:57)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:132)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:332)
+	... 18 common frames omitted
+[TraceId: ] 2026-02-01 17:15:14.027 [main] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.IllegalStateException: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:344)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:298)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:246)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:223)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:171)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:145)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:133)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:85)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:66)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:120)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:114)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:65)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:344)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1289)
+	at com.kitten.chs.web.CHSApplication.main(CHSApplication.java:17)
+Caused by: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reportConfigurationErrorsIfNecessary(LogbackLoggingSystem.java:189)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:170)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithSpecificConfig(AbstractLoggingSystem.java:66)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:57)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:132)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:332)
+	... 18 common frames omitted
+[TraceId: ] 2026-02-01 17:15:52.365 [main] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.IllegalStateException: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:344)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:298)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:246)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:223)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:171)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:145)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:133)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:85)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:66)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:120)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:114)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:65)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:344)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1289)
+	at com.kitten.chs.web.CHSApplication.main(CHSApplication.java:17)
+Caused by: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reportConfigurationErrorsIfNecessary(LogbackLoggingSystem.java:189)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:170)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithSpecificConfig(AbstractLoggingSystem.java:66)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:57)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:132)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:332)
+	... 18 common frames omitted
+[TraceId: ] 2026-02-01 17:16:50.126 [main] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.IllegalStateException: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:344)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:298)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:246)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:223)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:171)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:145)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:133)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:85)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:66)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:120)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:114)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:65)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:344)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1289)
+	at com.kitten.chs.web.CHSApplication.main(CHSApplication.java:17)
+Caused by: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reportConfigurationErrorsIfNecessary(LogbackLoggingSystem.java:189)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:170)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithSpecificConfig(AbstractLoggingSystem.java:66)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:57)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:132)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:332)
+	... 18 common frames omitted
+2026-02-01 17:17:09.990 [main] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.IllegalStateException: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:344)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:298)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:246)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:223)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:171)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:145)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:133)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:85)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:66)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:120)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:114)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:65)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:344)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1289)
+	at com.kitten.chs.web.CHSApplication.main(CHSApplication.java:17)
+Caused by: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reportConfigurationErrorsIfNecessary(LogbackLoggingSystem.java:189)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:170)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithSpecificConfig(AbstractLoggingSystem.java:66)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:57)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:132)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:332)
+	... 18 common frames omitted
+2026-02-01 17:18:32.750 [main] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.IllegalStateException: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:344)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:298)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:246)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:223)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:171)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:145)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:133)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:85)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:66)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:120)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:114)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:65)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:344)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:302)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1289)
+	at com.kitten.chs.web.CHSApplication.main(CHSApplication.java:17)
+Caused by: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@32:31 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@33:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@34:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@35:43 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@40:32 - no applicable action for [springProfile], current ElementPath  is [[configuration][springProfile]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@41:93 - no applicable action for [include], current ElementPath  is [[configuration][springProfile][include]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@42:28 - no applicable action for [root], current ElementPath  is [[configuration][springProfile][root]]
+ERROR in ch.qos.logback.core.joran.spi.Interpreter@43:40 - no applicable action for [appender-ref], current ElementPath  is [[configuration][springProfile][root][appender-ref]]
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reportConfigurationErrorsIfNecessary(LogbackLoggingSystem.java:189)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:170)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithSpecificConfig(AbstractLoggingSystem.java:66)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:57)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:132)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:332)
+	... 18 common frames omitted
+[TraceId: ] 2026-02-01 17:21:09.922 [main] INFO  com.kitten.chs.web.CHSApplication - Starting CHSApplication using Java 17.0.14 on LAPTOP-FC1VQ3PG with PID 33848 (D:\finalDesign\project\chs-mvc-server\chs-web\target\classes started by kitten in D:\finalDesign\project\chs-mvc-server)
+[TraceId: ] 2026-02-01 17:21:09.924 [main] INFO  com.kitten.chs.web.CHSApplication - The following 1 profile is active: "prod"
+[TraceId: ] 2026-02-01 17:21:10.715 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9200 (http)
+[TraceId: ] 2026-02-01 17:21:10.721 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+[TraceId: ] 2026-02-01 17:21:10.721 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+[TraceId: ] 2026-02-01 17:21:10.791 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[TraceId: ] 2026-02-01 17:21:10.791 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 834 ms
+[TraceId: ] 2026-02-01 17:21:11.120 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 9200 (http) with context path ''
+[TraceId: ] 2026-02-01 17:21:11.127 [main] INFO  com.kitten.chs.web.CHSApplication - Started CHSApplication in 1.506 seconds (JVM running for 2.048)
+[TraceId: ] 2026-02-01 17:21:11.130 [main] INFO  com.kitten.chs.web.CHSApplication - 💉💉💉CHS Server 启动成功!!! 💉💉💉
