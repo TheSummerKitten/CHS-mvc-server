@@ -1,5 +1,6 @@
 package com.kitten.chs.common.utils;
 
+import com.kitten.chs.common.exception.BaseExceptionInterface;
 import com.kitten.chs.common.exception.BizException;
 import lombok.Data;
 
@@ -59,6 +60,14 @@ public class Response<T> implements Serializable {
         response.setSuccess(false);
         response.setErrorCode(bizException.getErrorCode());
         response.setMessage(bizException.getErrorMessage());
+        return response;
+    }
+
+    public static <T> Response<T> fail(BaseExceptionInterface baseExceptionInterface) {
+        Response<T> response = new Response<>();
+        response.setSuccess(false);
+        response.setErrorCode(baseExceptionInterface.getErrorCode());
+        response.setMessage(baseExceptionInterface.getErrorMessage());
         return response;
     }
 

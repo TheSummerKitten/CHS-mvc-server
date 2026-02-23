@@ -8,3 +8,10 @@ spring:
 #  jackson:
 #    default-property-inclusion: non_null
 #    date-format: yyyy-MM-dd HH:mm:ss
+
+jjwt:
+  issuer: kitten
+  secret: gL8WRefQk52Lm9WRj2+Ij2VEYLgg1vz4EyTfXjgWSuhQGAnchSKJBZdma+qf89oVbR3NYOgvd2l42+FoCWjFXw==
+  tokenPrefix: Bearer
+  tokenHeaderKey: Authorization
+  tokenExpireTime: 14400

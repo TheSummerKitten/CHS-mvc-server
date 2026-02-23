@@ -14,10 +14,13 @@ public enum ResponseCodeEnum implements BaseExceptionInterface {
 
     // ----------- 通用异常状态码 -----------
     SYSTEM_ERROR("S-10000", "出错啦，后台小哥正在努力修复中..."),
-
+    LOGIN_FAIL("S-10001", "登录失败"),
     // ----------- 业务异常状态码 -----------
     INIT_PROJECT_ERROR("B-20000", "业务异常 - 请重试"),
-    PARAM_NOT_VALID("B-20001", "参数校验失败")
+    PARAM_NOT_VALID("B-20001", "参数校验失败"),
+    USERNAME_OR_PWD_ERROR("B-20002", "用户名或密码错误"),
+    UNAUTHORIZED("B-20003", "未登录"),
+    FORBIDDEN("B-20004", "无权限")
     ;
 
     // 异常码

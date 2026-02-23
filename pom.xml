@@ -13,6 +13,7 @@
         <module>chs-admin</module>
         <module>chs-web</module>
         <module>chs-common</module>
+        <module>chs-jwt</module>
     </modules>
 
     <parent>
@@ -33,6 +34,9 @@
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <jackson.version>2.15.2</jackson.version>
         <knife4j.version>4.3.0</knife4j.version>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <p6spy.version>3.9.1</p6spy.version>
+        <jjwt.version>0.11.2</jjwt.version>
     </properties>
 
 
@@ -69,6 +73,35 @@
                 <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
+            <!--      Mybatis-Plus      -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--      p6spy      -->
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
+            </dependency>
+            <!--      JWT      -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
 
 
             <!--      chs      -->
@@ -85,6 +118,11 @@
             <dependency>
                 <groupId>com.kitten.chs</groupId>
                 <artifactId>chs-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kitten.chs</groupId>
+                <artifactId>chs-jwt</artifactId>
                 <version>${revision}</version>
             </dependency>
         </dependencies>

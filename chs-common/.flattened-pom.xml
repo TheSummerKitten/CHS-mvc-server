@@ -7,7 +7,7 @@
     <artifactId>chs-mvc-server</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>com.kitten.chs.common</groupId>
+  <groupId>com.kitten.chs</groupId>
   <artifactId>chs-common</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>chs-common</name>
@@ -23,6 +23,14 @@
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
     <dependency>
@@ -36,6 +44,19 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version>
+    </dependency>
+    <dependency>
+      <groupId>p6spy</groupId>
+      <artifactId>p6spy</artifactId>
     </dependency>
   </dependencies>
 </project>
