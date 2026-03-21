@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @author kitten
  */
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/user")
 @Api(tags = "Admin 用户模块")
 public class AdminUserController {
 
@@ -31,6 +31,11 @@ public class AdminUserController {
     @GetMapping("/user/info")
     public Response<?> FindCurrentUserInfo() {
         return adminUserService.findCurrentUserInfo();
+    }
+
+    @PostMapping("/user/list")
+    public Response<?> findUserList() {
+        return Response.success("查询成功");
     }
 
 }

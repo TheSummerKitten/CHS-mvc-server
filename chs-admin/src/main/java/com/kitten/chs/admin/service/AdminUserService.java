@@ -12,5 +12,4 @@ public interface AdminUserService {
     Response<?> updatePassword(UpdatePasswordReqVO reqVO);
 
     Response<FindUserInfoRspVO> findCurrentUserInfo();
-
 }

@@ -4,6 +4,7 @@ import com.kitten.chs.admin.model.vo.req.UpdatePasswordReqVO;
 import com.kitten.chs.admin.model.vo.rsp.FindUserInfoRspVO;
 import com.kitten.chs.admin.service.AdminUserService;
 import com.kitten.chs.common.domain.mapper.UserMapper;
+import com.kitten.chs.common.domain.mapper.UserRoleMapper;
 import com.kitten.chs.common.utils.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * @author kitten
@@ -25,6 +27,12 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+
+    @Autowired
+    private TransactionTemplate transactionTemplate;
 
 
     @Override

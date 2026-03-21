@@ -28,6 +28,8 @@ public class UserDO {
 
     private String password;
 
+    private String phone;
+
     private Date createTime;
 
     private Date updateTime;
