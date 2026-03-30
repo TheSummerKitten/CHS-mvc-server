@@ -20,7 +20,10 @@ public enum ResponseCodeEnum implements BaseExceptionInterface {
     PARAM_NOT_VALID("B-20001", "参数校验失败"),
     USERNAME_OR_PWD_ERROR("B-20002", "用户名或密码错误"),
     UNAUTHORIZED("B-20003", "未登录"),
-    FORBIDDEN("B-20004", "无权限")
+    FORBIDDEN("B-20004", "无权限"),
+    USER_DELETE_ERROR("B-20005", "用户删除失败"),
+    UPDATE_USER_REQ_PARAM_INVALID("B-20006", "更新参数异常"),
+    USER_NOT_EXIST("B-20007", "该用户不存在"),
     ;
 
     // 异常码

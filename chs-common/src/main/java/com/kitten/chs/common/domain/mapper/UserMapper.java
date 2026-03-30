@@ -3,8 +3,11 @@ package com.kitten.chs.common.domain.mapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kitten.chs.common.domain.dataObject.UserDO;
+import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -33,4 +36,19 @@ public interface UserMapper extends BaseMapper<UserDO> {
 
         return selectOne(wrapper);
     };
+
+    /**
+     * 分页查询用户，排除 ROLE_ADMIN 角色
+     * @param page
+     * @param username
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    Page<UserDO> selectPageExcludeAdmin(Page<UserDO> page,
+                                        @Param("username") String username,
+                                        @Param("startDate") LocalDate startDate,
+                                        @Param("endDate") LocalDate endDate);
+
+
 }
