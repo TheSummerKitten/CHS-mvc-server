@@ -25,4 +25,6 @@ public interface AdminUserService {
     Response<?> deleteUser(DeleteUserReqVO reqVO);
 
     Response<?> updateUserInfo(UpdateUserReqVO reqVO);
+
+    Response<?> clearUserAvatar(DeleteUserReqVO reqVO);
 }

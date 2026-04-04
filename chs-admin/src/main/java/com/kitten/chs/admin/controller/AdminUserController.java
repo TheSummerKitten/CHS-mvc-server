@@ -40,7 +40,7 @@ public class AdminUserController {
     }
 
     @PostMapping("/list")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperationLog(description = "用户分页条件查询")
     public PageResponse<FindUserPageConListRespVO> findUserPageConditionList(@RequestBody FindUserPageConListReqVO reqVO) {
         return adminUserService.findUserPageConditionList(reqVO);
@@ -48,7 +48,7 @@ public class AdminUserController {
 
     @PostMapping("/delete")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperationLog(description = "用户分页条件查询")
+    @ApiOperationLog(description = "删除用户")
     public Response<?> deleteUser(@RequestBody DeleteUserReqVO reqVO) {
         return adminUserService.deleteUser(reqVO);
     }
@@ -58,6 +58,13 @@ public class AdminUserController {
     @ApiOperationLog(description = "用户基础信息更新")
     public Response<?> updateUser(@RequestBody UpdateUserReqVO reqVO) {
         return adminUserService.updateUserInfo(reqVO);
+    }
+
+    @PostMapping("/avatar/clear")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DOCTOR')")
+    @ApiOperationLog(description = "清空用户头像")
+    public Response<?> clearUserAvatar(@RequestBody DeleteUserReqVO reqVO) {
+        return adminUserService.clearUserAvatar(reqVO);
     }
 
 }

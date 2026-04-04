@@ -1,6 +1,7 @@
 package com.kitten.chs.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kitten.chs.admin.model.vo.req.DeleteUserReqVO;
 import com.kitten.chs.admin.model.vo.req.FindUserPageConListReqVO;
@@ -140,6 +141,7 @@ public class AdminUserServiceImpl implements AdminUserService {
         return Response.success();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Response<?> updateUserInfo(UpdateUserReqVO reqVO) {
         if (reqVO.getId() == null) {
@@ -154,9 +156,20 @@ public class AdminUserServiceImpl implements AdminUserService {
             return Response.fail(ResponseCodeEnum.USER_NOT_EXIST);
         }
 
+        String oldUsername = existingUser.getUsername();
+        String newUsername = StringUtils.isNotBlank(reqVO.getUsername()) ? reqVO.getUsername() : oldUsername;
+        boolean usernameChanged = !oldUsername.equals(newUsername);
+
+        if (usernameChanged) {
+            UserDO existingUserWithNewName = userMapper.selectByUsername(newUsername);
+            if (existingUserWithNewName != null && !existingUserWithNewName.getId().equals(reqVO.getId())) {
+                return Response.fail("用户名已存在");
+            }
+        }
+
         UserDO updateUser = UserDO.builder()
                 .id(reqVO.getId())
-                .username(StringUtils.isNotBlank(reqVO.getUsername()) ? reqVO.getUsername() : existingUser.getUsername())
+                .username(newUsername)
                 .phone(StringUtils.isNotBlank(reqVO.getPhone()) ? reqVO.getPhone() : existingUser.getPhone())
                 .gender(reqVO.getGender() != null ? reqVO.getGender() : existingUser.getGender())
                 .updateTime(LocalDateTime.now())
@@ -167,7 +180,42 @@ public class AdminUserServiceImpl implements AdminUserService {
             return Response.fail(ResponseCodeEnum.SYSTEM_ERROR);
         }
 
+        if (usernameChanged) {
+            LambdaUpdateWrapper<UserRoleDO> updateWrapper = new LambdaUpdateWrapper<>();
+            updateWrapper.eq(UserRoleDO::getUsername, oldUsername)
+                    .set(UserRoleDO::getUsername, newUsername);
+            
+            int roleUpdateResult = userRoleMapper.update(null, updateWrapper);
+            if (roleUpdateResult <= 0) {
+                log.warn("更新用户角色表的用户名失败，用户ID: {}, 旧用户名: {}, 新用户名: {}", 
+                        reqVO.getId(), oldUsername, newUsername);
+            }
+        }
+
         return Response.success("更新用户信息成功");
+    }
+
+    @Override
+    public Response<?> clearUserAvatar(DeleteUserReqVO reqVO) {
+        Integer userId = reqVO.getId();
+        
+        UserDO existingUser = userMapper.selectById(userId);
+        if (existingUser == null) {
+            return Response.fail(ResponseCodeEnum.USER_NOT_EXIST);
+        }
+
+        UserDO updateUser = UserDO.builder()
+                .id(Long.valueOf(userId))
+                .avatar("")
+                .updateTime(LocalDateTime.now())
+                .build();
+
+        int result = userMapper.updateById(updateUser);
+        if (result <= 0) {
+            return Response.fail("清空头像失败");
+        }
+
+        return Response.success("清空头像成功");
     }
 
 }
