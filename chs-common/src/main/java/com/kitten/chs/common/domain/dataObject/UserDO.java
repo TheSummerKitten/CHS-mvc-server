@@ -8,8 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 /**
@@ -30,6 +30,12 @@ public class UserDO {
     private String password;
 
     private String phone;
+
+    private BigDecimal balance;
+
+    private Integer gender;
+
+    private String avatar;
 
     private LocalDateTime createTime;
 

@@ -9,6 +9,7 @@ import com.kitten.chs.admin.model.vo.req.UpdateUserReqVO;
 import com.kitten.chs.admin.model.vo.rsp.FindUserInfoRspVO;
 import com.kitten.chs.admin.model.vo.rsp.FindUserPageConListRespVO;
 import com.kitten.chs.admin.service.AdminUserService;
+import com.kitten.chs.common.config.MinioConfig;
 import com.kitten.chs.common.domain.dataObject.UserDO;
 import com.kitten.chs.common.domain.dataObject.UserRoleDO;
 import com.kitten.chs.common.domain.mapper.UserMapper;
@@ -34,18 +35,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.apache.commons.lang3.compare.ComparableUtils.ge;
-
-/**
- * @author kitten
- */
 @Slf4j
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
 
-    // security
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private MinioConfig minioConfig;
 
     @Autowired
     private UserMapper userMapper;
@@ -62,10 +60,8 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (!reqVO.getPassword().equals(reqVO.getConfirmPassword())) {
             return Response.fail("输入密码和确认密码不一致");
         }
-        //1.加密
         String password = passwordEncoder.encode(reqVO.getPassword());
         log.info("encode password: {}", password);
-        //2.更新
         int count = userMapper.updateByUsernameAndPassword(reqVO.getUsername(), password);
         if (count != 1) {
             return Response.fail("更新密码失败");
@@ -73,10 +69,6 @@ public class AdminUserServiceImpl implements AdminUserService {
         return Response.success("修改成功");
     }
 
-    /**
-     * 获取当前用户信息
-     * @return
-     */
     @Override
     public Response<FindUserInfoRspVO> findCurrentUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -89,39 +81,12 @@ public class AdminUserServiceImpl implements AdminUserService {
         return Response.success(rspVO);
     }
 
-    /**
-     * 分页条件查询
-     * @param reqVO
-     * @return
-     */
     @Override
     public PageResponse<FindUserPageConListRespVO> findUserPageConditionList(FindUserPageConListReqVO reqVO) {
         Long current = reqVO.getCurrent();
         Long size = reqVO.getSize();
 
-        // 分页对象(查询第几页、每页多少数据)
         Page<UserDO> page = new Page<>(current, size);
-
-        // 构建查询条件
-//        LambdaQueryWrapper<UserDO> wrapper = new LambdaQueryWrapper<>();
-//
-//        String name = reqVO.getUsername();
-//        LocalDate startDate = reqVO.getStartDate();
-//        LocalDate endDate = reqVO.getEndDate();
-//
-//        wrapper.like(StringUtils.isNotBlank(name), UserDO::getUsername, name.trim())
-//                .ge(Objects.nonNull(startDate), UserDO::getCreateTime, startDate)
-//                .le(Objects.nonNull(endDate), UserDO::getCreateTime, endDate)
-//                .orderByDesc(UserDO::getCreateTime);
-//
-//        Page<UserDO> userDOPage = userMapper.selectPage(page, wrapper);
-
-//        Page<UserDO> userDOPage = userMapper.selectPageExcludeAdmin(
-//                page,
-//                reqVO.getUsername(),
-//                reqVO.getStartDate(),
-//                reqVO.getEndDate()
-//        );
 
         LambdaQueryWrapper<UserDO> wrapper = new LambdaQueryWrapper<>();
         String name = reqVO.getUsername();
@@ -139,23 +104,26 @@ public class AdminUserServiceImpl implements AdminUserService {
         List<FindUserPageConListRespVO> vos = null;
         if (!CollectionUtils.isEmpty(userDOS)) {
             vos = userDOS.stream()
-                    .map(userDO -> FindUserPageConListRespVO.builder()
-                            .id(userDO.getId())
-                            .name(userDO.getUsername())
-                            .phone(userDO.getPhone())
-                            .createTime(userDO.getCreateTime())
-                            .build())
+                    .map(userDO -> {
+                        String avatarUrl = null;
+                        if (StringUtils.isNotBlank(userDO.getAvatar())) {
+                            avatarUrl = minioConfig.getEndpoint() + "/" + minioConfig.getBucketName() + "/" + userDO.getAvatar();
+                        }
+                        return FindUserPageConListRespVO.builder()
+                                .id(userDO.getId())
+                                .name(userDO.getUsername())
+                                .phone(userDO.getPhone())
+                                .gender(userDO.getGender())
+                                .avatar(avatarUrl)
+                                .createTime(userDO.getCreateTime())
+                                .build();
+                    })
                     .collect(Collectors.toList());
         }
 
         return PageResponse.success(userDOPage, vos);
     }
 
-    /**
-     * 根据id删除用户
-     * @param reqVO
-     * @return
-     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Response<?> deleteUser(DeleteUserReqVO reqVO) {
@@ -165,16 +133,13 @@ public class AdminUserServiceImpl implements AdminUserService {
             throw new BizException(ResponseCodeEnum.USER_DELETE_ERROR);
         }
         String username = user.getUsername();
-        // 2. 删除 user_role 表中 username 对应的记录
         userRoleMapper.delete(new LambdaQueryWrapper<UserRoleDO>()
                 .eq(UserRoleDO::getUsername, username));
-        // 3.删除用户
         userMapper.deleteById(userId);
 
         return Response.success();
     }
 
-    // update user info
     @Override
     public Response<?> updateUserInfo(UpdateUserReqVO reqVO) {
         if (reqVO.getId() == null) {
@@ -184,27 +149,24 @@ public class AdminUserServiceImpl implements AdminUserService {
             return Response.fail(ResponseCodeEnum.UPDATE_USER_REQ_PARAM_INVALID);
         }
 
-        // 2. 检查用户是否存在
         UserDO existingUser = userMapper.selectById(reqVO.getId());
         if (existingUser == null) {
             return Response.fail(ResponseCodeEnum.USER_NOT_EXIST);
         }
 
-        // 3. 构建更新对象
         UserDO updateUser = UserDO.builder()
                 .id(reqVO.getId())
                 .username(StringUtils.isNotBlank(reqVO.getUsername()) ? reqVO.getUsername() : existingUser.getUsername())
                 .phone(StringUtils.isNotBlank(reqVO.getPhone()) ? reqVO.getPhone() : existingUser.getPhone())
+                .gender(reqVO.getGender() != null ? reqVO.getGender() : existingUser.getGender())
                 .updateTime(LocalDateTime.now())
                 .build();
 
-        // 4. 执行更新
         int result = userMapper.updateById(updateUser);
         if (result <= 0) {
             return Response.fail(ResponseCodeEnum.SYSTEM_ERROR);
         }
 
-        // 5. 返回成功响应
         return Response.success("更新用户信息成功");
     }
 

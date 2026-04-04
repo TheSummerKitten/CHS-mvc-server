@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @author kitten
@@ -22,6 +21,10 @@ public class FindUserPageConListRespVO {
     private String name;
 
     private String phone;
+
+    private Integer gender;
+
+    private String avatar;
 
     private LocalDateTime createTime;
 

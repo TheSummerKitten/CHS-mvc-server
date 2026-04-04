@@ -1,21 +1,15 @@
 package com.kitten.chs.web.controller;
 
-import com.kitten.chs.admin.model.vo.req.FindUserPageConListReqVO;
-import com.kitten.chs.admin.model.vo.rsp.FindUserPageConListRespVO;
-import com.kitten.chs.common.utils.PageResponse;
 import com.kitten.chs.common.utils.Response;
 import com.kitten.chs.web.model.req.RegisterReqVO;
+import com.kitten.chs.web.model.req.UpdateSelfInfoReqVO;
+import com.kitten.chs.web.service.FileService;
 import com.kitten.chs.web.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-/**
- * @author kitten
- */
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/user")
@@ -25,9 +19,31 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private FileService fileService;
+
     @PostMapping("/register")
+    @ApiOperation(value = "用户注册")
     public Response<?> register(@RequestBody RegisterReqVO reqVO) {
         return userService.register(reqVO);
+    }
+
+    @GetMapping("/info")
+    @ApiOperation(value = "获取当前用户信息")
+    public Response<?> getCurrentUserInfo() {
+        return userService.getCurrentUserInfo();
+    }
+
+    @PostMapping("/info/update")
+    @ApiOperation(value = "更新个人信息")
+    public Response<?> updateSelfInfo(@RequestBody UpdateSelfInfoReqVO reqVO) {
+        return userService.updateSelfInfo(reqVO);
+    }
+
+    @PostMapping("/avatar/upload")
+    @ApiOperation(value = "上传头像")
+    public Response<?> uploadAvatar(@RequestParam("file") MultipartFile file) {
+        return fileService.uploadAvatar(file);
     }
 
 }

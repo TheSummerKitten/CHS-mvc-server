@@ -20,4 +20,6 @@ public class RegisterReqVO {
 
     private String phone;
 
+    private Integer gender;
+
 }

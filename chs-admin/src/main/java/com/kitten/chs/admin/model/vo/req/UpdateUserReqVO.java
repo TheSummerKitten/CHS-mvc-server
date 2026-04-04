@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 /**
  * @author kitten
  */
@@ -21,5 +19,7 @@ public class UpdateUserReqVO {
     private String username;
 
     private String phone;
+
+    private Integer gender;
 
 }
