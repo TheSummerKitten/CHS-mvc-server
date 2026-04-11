@@ -5,9 +5,11 @@ import com.kitten.chs.common.domain.dataObject.UserDO;
 import com.kitten.chs.common.domain.dataObject.UserRoleDO;
 import com.kitten.chs.common.domain.mapper.UserMapper;
 import com.kitten.chs.common.domain.mapper.UserRoleMapper;
+import com.kitten.chs.common.utils.FileUploadUtil;
 import com.kitten.chs.common.utils.Response;
 import com.kitten.chs.web.model.req.RegisterReqVO;
 import com.kitten.chs.web.model.req.UpdateSelfInfoReqVO;
+import com.kitten.chs.web.model.rsp.UploadAvatarRspVO;
 import com.kitten.chs.web.model.rsp.UserInfoRspVO;
 import com.kitten.chs.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -40,6 +43,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MinioConfig minioConfig;
+
+    @Autowired
+    private FileUploadUtil fileUploadUtil;
 
     @Override
     public Response<?> register(RegisterReqVO reqVO) {
@@ -131,6 +137,39 @@ public class UserServiceImpl implements UserService {
         }
         
         return Response.success("更新成功");
+    }
+
+    @Override
+    public Response<?> uploadAvatar(MultipartFile file) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        UserDO userDO = userMapper.selectByUsername(username);
+        if (userDO == null) {
+            return Response.fail("用户不存在");
+        }
+
+        FileUploadUtil.UploadResult result = fileUploadUtil.uploadAvatar(file);
+        if (!result.isSuccess()) {
+            return Response.fail(result.getMessage());
+        }
+
+        UserDO updateUser = UserDO.builder()
+                .id(userDO.getId())
+                .avatar(result.getObjectName())
+                .updateTime(LocalDateTime.now())
+                .build();
+
+        int updateResult = userMapper.updateById(updateUser);
+        if (updateResult <= 0) {
+            return Response.fail("更新头像失败");
+        }
+
+        UploadAvatarRspVO rspVO = UploadAvatarRspVO.builder()
+                .avatarUrl(result.getUrl())
+                .build();
+
+        return Response.success(rspVO);
     }
 
 }

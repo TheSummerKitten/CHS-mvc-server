@@ -1,6 +1,5 @@
-package com.kitten.chs.web.config;
+package com.kitten.chs.common.config;
 
-import com.kitten.chs.common.config.MinioConfig;
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -19,5 +18,4 @@ public class MinioConfigBean {
                 .credentials(minioConfig.getAccessKey(), minioConfig.getSecretKey())
                 .build();
     }
-
 }

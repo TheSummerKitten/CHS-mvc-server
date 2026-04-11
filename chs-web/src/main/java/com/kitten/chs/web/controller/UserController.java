@@ -3,7 +3,6 @@ package com.kitten.chs.web.controller;
 import com.kitten.chs.common.utils.Response;
 import com.kitten.chs.web.model.req.RegisterReqVO;
 import com.kitten.chs.web.model.req.UpdateSelfInfoReqVO;
-import com.kitten.chs.web.service.FileService;
 import com.kitten.chs.web.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,9 +17,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private FileService fileService;
 
     @PostMapping("/register")
     @ApiOperation(value = "用户注册")
@@ -43,7 +39,7 @@ public class UserController {
     @PostMapping("/avatar/upload")
     @ApiOperation(value = "上传头像")
     public Response<?> uploadAvatar(@RequestParam("file") MultipartFile file) {
-        return fileService.uploadAvatar(file);
+        return userService.uploadAvatar(file);
     }
 
 }
