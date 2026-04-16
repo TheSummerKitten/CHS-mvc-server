@@ -31,6 +31,8 @@ public class FindUserOrderListRespVO {
 
     private String remark;
 
+    private String rejectReason;
+
     private LocalDateTime createTime;
 
     private List<OrderItemVO> items;

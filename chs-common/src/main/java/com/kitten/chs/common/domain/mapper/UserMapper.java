@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kitten.chs.common.domain.dataObject.UserDO;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -50,5 +52,8 @@ public interface UserMapper extends BaseMapper<UserDO> {
                                         @Param("startDate") LocalDate startDate,
                                         @Param("endDate") LocalDate endDate);
 
+    @Update("UPDATE t_user SET balance = balance - #{amount}, update_time = NOW() " +
+            "WHERE username = #{username} AND balance >= #{amount} AND is_deleted = 0")
+    int deductBalance(@Param("username") String username, @Param("amount") BigDecimal amount);
 
 }

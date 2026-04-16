@@ -1,8 +1,5 @@
-package com.kitten.chs.common.domain.dataObject;
+package com.kitten.chs.admin.model.vo.rsp;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,15 +7,14 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("t_order")
-public class OrderDO {
+public class FindOrderPageListRespVO {
 
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     private String orderNo;
@@ -41,8 +37,18 @@ public class OrderDO {
 
     private LocalDateTime createTime;
 
-    private LocalDateTime updateTime;
+    private List<OrderItemVO> items;
 
-    private Boolean isDeleted;
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class OrderItemVO {
+        private Long id;
+        private String foodName;
+        private BigDecimal foodPrice;
+        private Integer quantity;
+        private BigDecimal subtotal;
+    }
 
 }

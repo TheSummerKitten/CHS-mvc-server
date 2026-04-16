@@ -25,7 +25,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -88,6 +90,15 @@ public class UserOrderServiceImpl implements UserOrderService {
             orderItems.add(orderItemDO);
         }
 
+        if (userDO.getBalance() == null || userDO.getBalance().compareTo(totalAmount) < 0) {
+            return Response.fail("余额不足，当前余额：" + (userDO.getBalance() != null ? userDO.getBalance() : BigDecimal.ZERO) + " 元");
+        }
+
+        int deductResult = userMapper.deductBalance(username, totalAmount);
+        if (deductResult <= 0) {
+            return Response.fail("余额扣减失败，请稍后重试");
+        }
+
         OrderDO orderDO = OrderDO.builder()
                 .orderNo(orderNo)
                 .username(username)
@@ -127,40 +138,46 @@ public class UserOrderServiceImpl implements UserOrderService {
         List<OrderDO> orderDOS = orderMapper.selectList(wrapper);
 
         List<FindUserOrderListRespVO> vos = new ArrayList<>();
-        if (orderDOS != null && !orderDOS.isEmpty()) {
-            for (OrderDO orderDO : orderDOS) {
-                LambdaQueryWrapper<OrderItemDO> itemWrapper = new LambdaQueryWrapper<>();
-                itemWrapper.eq(OrderItemDO::getOrderId, orderDO.getId());
-                List<OrderItemDO> orderItemDOS = orderItemMapper.selectList(itemWrapper);
+        if (orderDOS == null || orderDOS.isEmpty()) {
+            return Response.success(vos);
+        }
 
-                List<FindUserOrderListRespVO.OrderItemVO> itemVOs = new ArrayList<>();
-                if (orderItemDOS != null && !orderItemDOS.isEmpty()) {
-                    for (OrderItemDO orderItemDO : orderItemDOS) {
-                        FindUserOrderListRespVO.OrderItemVO itemVO = FindUserOrderListRespVO.OrderItemVO.builder()
-                                .id(orderItemDO.getId())
-                                .foodName(orderItemDO.getFoodName())
-                                .foodPrice(orderItemDO.getFoodPrice())
-                                .quantity(orderItemDO.getQuantity())
-                                .subtotal(orderItemDO.getSubtotal())
-                                .build();
-                        itemVOs.add(itemVO);
-                    }
-                }
+        List<Long> orderIds = orderDOS.stream()
+                .map(OrderDO::getId)
+                .collect(Collectors.toList());
 
-                FindUserOrderListRespVO vo = FindUserOrderListRespVO.builder()
-                        .id(orderDO.getId())
-                        .orderNo(orderDO.getOrderNo())
-                        .totalAmount(orderDO.getTotalAmount())
-                        .receiverName(orderDO.getReceiverName())
-                        .receiverPhone(orderDO.getReceiverPhone())
-                        .receiverAddress(orderDO.getReceiverAddress())
-                        .status(orderDO.getStatus())
-                        .remark(orderDO.getRemark())
-                        .createTime(orderDO.getCreateTime())
-                        .items(itemVOs)
-                        .build();
-                vos.add(vo);
-            }
+        List<OrderItemDO> allOrderItems = orderItemMapper.selectByOrderIds(orderIds);
+
+        Map<Long, List<OrderItemDO>> orderItemMap = allOrderItems.stream()
+                .collect(Collectors.groupingBy(OrderItemDO::getOrderId));
+
+        for (OrderDO orderDO : orderDOS) {
+            List<OrderItemDO> orderItemDOS = orderItemMap.getOrDefault(orderDO.getId(), new ArrayList<>());
+
+            List<FindUserOrderListRespVO.OrderItemVO> itemVOs = orderItemDOS.stream()
+                    .map(orderItemDO -> FindUserOrderListRespVO.OrderItemVO.builder()
+                            .id(orderItemDO.getId())
+                            .foodName(orderItemDO.getFoodName())
+                            .foodPrice(orderItemDO.getFoodPrice())
+                            .quantity(orderItemDO.getQuantity())
+                            .subtotal(orderItemDO.getSubtotal())
+                            .build())
+                    .collect(Collectors.toList());
+
+            FindUserOrderListRespVO vo = FindUserOrderListRespVO.builder()
+                    .id(orderDO.getId())
+                    .orderNo(orderDO.getOrderNo())
+                    .totalAmount(orderDO.getTotalAmount())
+                    .receiverName(orderDO.getReceiverName())
+                    .receiverPhone(orderDO.getReceiverPhone())
+                    .receiverAddress(orderDO.getReceiverAddress())
+                    .status(orderDO.getStatus())
+                    .remark(orderDO.getRemark())
+                    .rejectReason(orderDO.getRejectReason())
+                    .createTime(orderDO.getCreateTime())
+                    .items(itemVOs)
+                    .build();
+            vos.add(vo);
         }
 
         return Response.success(vos);
