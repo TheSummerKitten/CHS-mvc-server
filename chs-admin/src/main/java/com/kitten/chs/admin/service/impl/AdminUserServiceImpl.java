@@ -93,11 +93,11 @@ public class AdminUserServiceImpl implements AdminUserService {
         String name = reqVO.getUsername();
         LocalDate startDate = reqVO.getStartDate();
         LocalDate endDate = reqVO.getEndDate();
-        wrapper.like(StringUtils.isNotBlank(name), UserDO::getUsername, name.trim())
+        wrapper.like(StringUtils.isNotBlank(name), UserDO::getUsername, name != null ? name.trim() : null)
                 .ge(Objects.nonNull(startDate), UserDO::getCreateTime, startDate)
                 .le(Objects.nonNull(endDate), UserDO::getCreateTime, endDate)
+                .notInSql(UserDO::getUsername, "SELECT username FROM t_user_role WHERE role = 'ROLE_ADMIN'")
                 .orderByDesc(UserDO::getCreateTime);
-        wrapper.notExists(" (select 1 from chs.t_user_role ur where ur.username = chs.t_user.username and ur.role = 'ROLE_ADMIN' ) ");
         Page<UserDO> userDOPage = userMapper.selectPage(page, wrapper);
 
         List<UserDO> userDOS = userDOPage.getRecords();

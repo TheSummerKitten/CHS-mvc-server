@@ -48,7 +48,7 @@ public class FoodServiceImpl implements FoodService {
         String category = reqVO.getCategory();
         Integer status = reqVO.getStatus();
 
-        wrapper.like(StringUtils.isNotBlank(name), FoodDO::getName, name.trim())
+        wrapper.like(StringUtils.isNotBlank(name), FoodDO::getName, name != null ? name.trim() : null)
                 .eq(StringUtils.isNotBlank(category), FoodDO::getCategory, category)
                 .eq(Objects.nonNull(status), FoodDO::getStatus, status)
                 .eq(FoodDO::getIsDeleted, false)

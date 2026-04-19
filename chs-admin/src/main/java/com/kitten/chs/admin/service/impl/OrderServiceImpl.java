@@ -48,9 +48,9 @@ public class OrderServiceImpl implements OrderService {
         Integer status = reqVO.getStatus();
         String orderNo = reqVO.getOrderNo();
 
-        wrapper.like(StringUtils.isNotBlank(username), OrderDO::getUsername, username.trim())
+        wrapper.like(StringUtils.isNotBlank(username), OrderDO::getUsername, username != null ? username.trim() : null)
                 .eq(Objects.nonNull(status), OrderDO::getStatus, status)
-                .like(StringUtils.isNotBlank(orderNo), OrderDO::getOrderNo, orderNo.trim())
+                .like(StringUtils.isNotBlank(orderNo), OrderDO::getOrderNo, orderNo != null ? orderNo.trim() : null)
                 .eq(OrderDO::getIsDeleted, false)
                 .orderByDesc(OrderDO::getCreateTime);
 

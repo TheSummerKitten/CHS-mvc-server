@@ -33,7 +33,7 @@ public class UserFoodServiceImpl implements UserFoodService {
         String name = reqVO.getName();
         String category = reqVO.getCategory();
 
-        wrapper.like(StringUtils.isNotBlank(name), FoodDO::getName, name.trim())
+        wrapper.like(StringUtils.isNotBlank(name), FoodDO::getName, name != null ? name.trim() : null)
                 .eq(StringUtils.isNotBlank(category), FoodDO::getCategory, category)
                 .eq(FoodDO::getStatus, 1)
                 .eq(FoodDO::getIsDeleted, false)
