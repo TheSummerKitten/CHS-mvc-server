@@ -27,4 +27,6 @@ public interface AdminUserService {
     Response<?> updateUserInfo(UpdateUserReqVO reqVO);
 
     Response<?> clearUserAvatar(DeleteUserReqVO reqVO);
+
+    Response<?> checkPhoneExists(String phone, Integer excludeUserId);
 }

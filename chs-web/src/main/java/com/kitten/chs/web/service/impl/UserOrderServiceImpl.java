@@ -12,6 +12,7 @@ import com.kitten.chs.common.domain.mapper.UserMapper;
 import com.kitten.chs.common.utils.Response;
 import com.kitten.chs.web.model.req.CreateOrderReqVO;
 import com.kitten.chs.web.model.rsp.FindUserOrderListRespVO;
+import com.kitten.chs.web.model.rsp.MonthlyConsumptionRspVO;
 import com.kitten.chs.web.service.UserOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,6 +188,26 @@ public class UserOrderServiceImpl implements UserOrderService {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
         String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         return "ORD" + timestamp + uuid;
+    }
+
+    @Override
+    public Response<MonthlyConsumptionRspVO> getMonthlyConsumption() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        LocalDateTime now = LocalDateTime.now();
+        int year = now.getYear();
+        int month = now.getMonthValue();
+
+        BigDecimal totalAmount = orderMapper.sumMonthlyConsumption(username, year, month);
+        Integer orderCount = orderMapper.countMonthlyOrders(username, year, month);
+
+        MonthlyConsumptionRspVO vo = MonthlyConsumptionRspVO.builder()
+                .totalAmount(totalAmount != null ? totalAmount : BigDecimal.ZERO)
+                .orderCount(orderCount != null ? orderCount : 0)
+                .build();
+
+        return Response.success(vo);
     }
 
 }

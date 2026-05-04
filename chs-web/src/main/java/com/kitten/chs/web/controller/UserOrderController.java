@@ -4,6 +4,7 @@ import com.kitten.chs.common.aspect.ApiOperationLog;
 import com.kitten.chs.common.utils.Response;
 import com.kitten.chs.web.model.req.CreateOrderReqVO;
 import com.kitten.chs.web.model.rsp.FindUserOrderListRespVO;
+import com.kitten.chs.web.model.rsp.MonthlyConsumptionRspVO;
 import com.kitten.chs.web.service.UserOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +33,13 @@ public class UserOrderController {
     @ApiOperation(value = "用户查询订单列表")
     public Response<List<FindUserOrderListRespVO>> findUserOrderList() {
         return userOrderService.findUserOrderList();
+    }
+
+    @GetMapping("/monthly-consumption")
+    @ApiOperationLog(description = "用户查询当月消费统计")
+    @ApiOperation(value = "用户查询当月消费统计")
+    public Response<MonthlyConsumptionRspVO> getMonthlyConsumption() {
+        return userOrderService.getMonthlyConsumption();
     }
 
 }

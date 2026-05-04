@@ -42,4 +42,12 @@ public class UserController {
         return userService.uploadAvatar(file);
     }
 
+    @GetMapping("/phone/check")
+    @ApiOperation(value = "检查手机号是否已存在")
+    public Response<?> checkPhoneExists(
+            @RequestParam String phone,
+            @RequestParam(required = false) Long excludeUserId) {
+        return userService.checkPhoneExists(phone, excludeUserId);
+    }
+
 }

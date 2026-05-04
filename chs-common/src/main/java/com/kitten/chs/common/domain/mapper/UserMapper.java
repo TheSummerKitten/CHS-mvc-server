@@ -39,6 +39,12 @@ public interface UserMapper extends BaseMapper<UserDO> {
         return selectOne(wrapper);
     };
 
+    default UserDO selectByPhone(String phone) {
+        LambdaQueryWrapper<UserDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UserDO::getPhone, phone);
+        return selectOne(wrapper);
+    }
+
     /**
      * 分页查询用户，排除 ROLE_ADMIN 角色
      * @param page

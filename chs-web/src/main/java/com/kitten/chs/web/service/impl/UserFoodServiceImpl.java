@@ -54,6 +54,11 @@ public class UserFoodServiceImpl implements UserFoodService {
                                 .name(foodDO.getName())
                                 .price(foodDO.getPrice())
                                 .description(foodDO.getDescription())
+                                .calories(foodDO.getCalories())
+                                .protein(foodDO.getProtein())
+                                .fat(foodDO.getFat())
+                                .carbohydrate(foodDO.getCarbohydrate())
+                                .healthTags(foodDO.getHealthTags())
                                 .image(imageUrl)
                                 .category(foodDO.getCategory())
                                 .build();

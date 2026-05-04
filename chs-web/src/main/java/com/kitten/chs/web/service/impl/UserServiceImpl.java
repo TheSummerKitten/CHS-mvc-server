@@ -23,6 +23,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Slf4j
@@ -100,6 +101,16 @@ public class UserServiceImpl implements UserService {
         if (StringUtils.isNotBlank(userDO.getAvatar())) {
             avatarUrl = minioConfig.getEndpoint() + "/" + minioConfig.getBucketName() + "/" + userDO.getAvatar();
         }
+
+        List<UserRoleDO> userRoles = userRoleMapper.selectListByUsername(username);
+        String role = "ROLE_USER";
+        if (userRoles != null && !userRoles.isEmpty()) {
+            role = userRoles.stream()
+                    .map(UserRoleDO::getRole)
+                    .filter(r -> r.equals("ROLE_ADMIN") || r.equals("ROLE_DOCTOR"))
+                    .findFirst()
+                    .orElse("ROLE_USER");
+        }
         
         UserInfoRspVO rspVO = UserInfoRspVO.builder()
                 .id(userDO.getId())
@@ -108,6 +119,8 @@ public class UserServiceImpl implements UserService {
                 .balance(userDO.getBalance())
                 .gender(userDO.getGender())
                 .avatar(avatarUrl)
+                .role(role)
+                .address(userDO.getAddress())
                 .build();
         
         return Response.success(rspVO);
@@ -128,6 +141,7 @@ public class UserServiceImpl implements UserService {
                 .phone(StringUtils.isNotBlank(reqVO.getPhone()) ? reqVO.getPhone() : existingUser.getPhone())
                 .gender(reqVO.getGender() != null ? reqVO.getGender() : existingUser.getGender())
                 .avatar(StringUtils.isNotBlank(reqVO.getAvatar()) ? reqVO.getAvatar() : existingUser.getAvatar())
+                .address(StringUtils.isNotBlank(reqVO.getAddress()) ? reqVO.getAddress() : existingUser.getAddress())
                 .updateTime(LocalDateTime.now())
                 .build();
         
@@ -170,6 +184,23 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         return Response.success(rspVO);
+    }
+
+    @Override
+    public Response<?> checkPhoneExists(String phone, Long excludeUserId) {
+        if (StringUtils.isBlank(phone)) {
+            return Response.fail("手机号不能为空");
+        }
+        
+        UserDO user = userMapper.selectByPhone(phone);
+        if (user != null) {
+            if (excludeUserId != null && user.getId().equals(excludeUserId)) {
+                return Response.success("手机号可用");
+            }
+            return Response.fail("该手机号已被注册");
+        }
+        
+        return Response.success("手机号可用");
     }
 
 }

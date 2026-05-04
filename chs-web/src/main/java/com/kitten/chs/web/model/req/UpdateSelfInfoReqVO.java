@@ -20,4 +20,6 @@ public class UpdateSelfInfoReqVO {
 
     private String avatar;
 
+    private String address;
+
 }

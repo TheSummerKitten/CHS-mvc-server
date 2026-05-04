@@ -37,6 +37,8 @@ public class UserDO {
 
     private String avatar;
 
+    private String address;
+
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;

@@ -28,4 +28,8 @@ public class UserInfoRspVO {
 
     private String avatar;
 
+    private String role;
+
+    private String address;
+
 }

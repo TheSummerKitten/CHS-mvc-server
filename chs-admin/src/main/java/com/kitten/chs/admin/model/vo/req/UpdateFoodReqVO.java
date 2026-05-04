@@ -21,6 +21,16 @@ public class UpdateFoodReqVO {
 
     private String description;
 
+    private Integer calories;
+
+    private BigDecimal protein;
+
+    private BigDecimal fat;
+
+    private BigDecimal carbohydrate;
+
+    private String healthTags;
+
     private String image;
 
     private String category;

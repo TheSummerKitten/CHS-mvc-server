@@ -67,4 +67,12 @@ public class AdminUserController {
         return adminUserService.clearUserAvatar(reqVO);
     }
 
+    @GetMapping("/phone/check")
+    @ApiOperation(value = "检查手机号是否已存在")
+    public Response<?> checkPhoneExists(
+            @RequestParam String phone,
+            @RequestParam(required = false) Integer excludeUserId) {
+        return adminUserService.checkPhoneExists(phone, excludeUserId);
+    }
+
 }

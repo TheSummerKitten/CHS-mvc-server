@@ -19,4 +19,6 @@ public interface UserService {
 
     Response<?> uploadAvatar(MultipartFile file);
 
+    Response<?> checkPhoneExists(String phone, Long excludeUserId);
+
 }

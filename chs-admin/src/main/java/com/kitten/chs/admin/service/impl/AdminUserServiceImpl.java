@@ -218,4 +218,21 @@ public class AdminUserServiceImpl implements AdminUserService {
         return Response.success("清空头像成功");
     }
 
+    @Override
+    public Response<?> checkPhoneExists(String phone, Integer excludeUserId) {
+        if (StringUtils.isBlank(phone)) {
+            return Response.fail("手机号不能为空");
+        }
+        
+        UserDO user = userMapper.selectByPhone(phone);
+        if (user != null) {
+            if (excludeUserId != null && user.getId().equals(excludeUserId.longValue())) {
+                return Response.success("手机号可用");
+            }
+            return Response.fail("该手机号已被注册");
+        }
+        
+        return Response.success("手机号可用");
+    }
+
 }
