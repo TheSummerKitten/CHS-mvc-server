@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package com.kitten.chs.proto;
+
+option java_package = "com.kitten.chs.common.proto";
+option java_multiple_files = true;
+option java_outer_classname = "DashboardProto";
+
+message DashboardStatsResponse {
+  int64 total_users = 1;
+  int64 today_new_users = 2;
+  int64 total_health_records = 3;
+  int64 today_health_records = 4;
+  int64 total_orders = 5;
+  string total_order_amount = 6;
+  repeated DailyOrderStats weekly_order_stats = 7;
+}
+
+message DailyOrderStats {
+  string date = 1;
+  int64 order_count = 2;
+  string order_amount = 3;
+}

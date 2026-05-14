@@ -15,6 +15,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HealthRecordExcelUtil {
@@ -36,7 +37,7 @@ public class HealthRecordExcelUtil {
         WriteCellStyle contentWriteCellStyle = new WriteCellStyle();
         HorizontalCellStyleStrategy horizontalCellStyleStrategy = 
                 new HorizontalCellStyleStrategy(headWriteCellStyle, contentWriteCellStyle);
-        writeSheet.setCustomWriteHandlerList(List.of(horizontalCellStyleStrategy));
+        writeSheet.setCustomWriteHandlerList(Collections.singletonList(horizontalCellStyleStrategy));
 
         List<List<String>> head = new ArrayList<>();
         List<List<Object>> dataList = new ArrayList<>();
@@ -59,7 +60,7 @@ public class HealthRecordExcelUtil {
         }
 
         for (int i = 0; i < 6; i++) {
-            head.add(List.of(""));
+            head.add(Collections.singletonList(""));
         }
 
         excelWriter.write(dataList, writeSheet);
