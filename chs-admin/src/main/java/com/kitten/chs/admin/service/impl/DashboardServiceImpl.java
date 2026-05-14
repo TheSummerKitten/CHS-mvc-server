@@ -78,7 +78,7 @@ public class DashboardServiceImpl implements DashboardService {
     private Long countOrders(LocalDateTime start, LocalDateTime end) {
         LambdaQueryWrapper<OrderDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(OrderDO::getIsDeleted, false);
-        wrapper.in(OrderDO::getStatus, 2, 3, 4);
+        wrapper.in(OrderDO::getStatus, 2);
         if (start != null && end != null) {
             wrapper.between(OrderDO::getCreateTime, start, end);
         }
@@ -88,7 +88,7 @@ public class DashboardServiceImpl implements DashboardService {
     private BigDecimal sumOrderAmount(LocalDateTime start, LocalDateTime end) {
         LambdaQueryWrapper<OrderDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(OrderDO::getIsDeleted, false);
-        wrapper.in(OrderDO::getStatus, 2, 3, 4);
+        wrapper.in(OrderDO::getStatus, 2);
         if (start != null && end != null) {
             wrapper.between(OrderDO::getCreateTime, start, end);
         }

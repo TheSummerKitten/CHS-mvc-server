@@ -119,6 +119,17 @@ public class AdminHealthRecordServiceImpl implements HealthRecordService {
         healthRecordDO.setUpdateTime(LocalDateTime.now());
         healthRecordMapper.updateById(healthRecordDO);
 
+        LambdaQueryWrapper<MedicationReminderDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(MedicationReminderDO::getHealthRecordId, id)
+                .eq(MedicationReminderDO::getIsDeleted, false);
+        List<MedicationReminderDO> reminders = medicationReminderMapper.selectList(wrapper);
+        
+        for (MedicationReminderDO reminder : reminders) {
+            reminder.setIsDeleted(true);
+            reminder.setUpdateTime(LocalDateTime.now());
+            medicationReminderMapper.updateById(reminder);
+        }
+
         return Response.success();
     }
 
