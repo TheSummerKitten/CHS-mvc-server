@@ -7,6 +7,8 @@ import com.kitten.chs.admin.model.vo.req.FindOrderPageListReqVO;
 import com.kitten.chs.admin.model.vo.req.OrderActionReqVO;
 import com.kitten.chs.admin.model.vo.rsp.FindOrderPageListRespVO;
 import com.kitten.chs.admin.service.OrderService;
+import com.kitten.chs.admin.websocket.NotificationMessage;
+import com.kitten.chs.admin.websocket.WebSocketNotificationServer;
 import com.kitten.chs.common.domain.dataObject.OrderDO;
 import com.kitten.chs.common.domain.dataObject.OrderItemDO;
 import com.kitten.chs.common.domain.mapper.OrderItemMapper;
@@ -35,6 +37,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderItemMapper orderItemMapper;
+
+    @Autowired
+    private WebSocketNotificationServer webSocketNotificationServer;
 
     @Override
     public PageResponse<FindOrderPageListRespVO> findOrderPageList(FindOrderPageListReqVO reqVO) {
@@ -131,6 +136,9 @@ public class OrderServiceImpl implements OrderService {
             return Response.fail("接单失败");
         }
 
+        notifyUser(orderDO, NotificationMessage.TYPE_ORDER_ACCEPTED,
+                "订单已受理", "您的订单 " + orderDO.getOrderNo() + " 已被商家接单，正在处理中");
+
         return Response.success("接单成功，订单正在处理中");
     }
 
@@ -165,6 +173,14 @@ public class OrderServiceImpl implements OrderService {
             return Response.fail("拒单失败");
         }
 
+        NotificationMessage msg = NotificationMessage.of(
+                NotificationMessage.TYPE_ORDER_REJECTED,
+                "订单已被拒绝",
+                "您的订单 " + orderDO.getOrderNo() + " 已被商家拒绝，原因：" + reqVO.getRejectReason().trim(),
+                orderDO.getId(), orderDO.getOrderNo());
+        msg.setRejectReason(reqVO.getRejectReason().trim());
+        webSocketNotificationServer.sendToUser(orderDO.getUsername(), msg);
+
         return Response.success("已拒绝该订单");
     }
 
@@ -193,6 +209,9 @@ public class OrderServiceImpl implements OrderService {
         if (result <= 0) {
             return Response.fail("完成订单失败");
         }
+
+        notifyUser(orderDO, NotificationMessage.TYPE_ORDER_COMPLETED,
+                "订单已完成", "您的订单 " + orderDO.getOrderNo() + " 已完成，感谢您的购买！");
 
         return Response.success("订单已完成");
     }
@@ -223,7 +242,19 @@ public class OrderServiceImpl implements OrderService {
             return Response.fail("取消订单失败");
         }
 
+        notifyUser(orderDO, NotificationMessage.TYPE_ORDER_CANCELLED,
+                "订单已取消", "您的订单 " + orderDO.getOrderNo() + " 已被取消");
+
         return Response.success("订单已取消");
+    }
+
+    private void notifyUser(OrderDO orderDO, String type, String title, String message) {
+        try {
+            NotificationMessage notification = NotificationMessage.of(type, title, message, orderDO.getId(), orderDO.getOrderNo());
+            webSocketNotificationServer.sendToUser(orderDO.getUsername(), notification);
+        } catch (Exception e) {
+            log.error("发送订单通知失败: orderId={}, username={}", orderDO.getId(), orderDO.getUsername(), e);
+        }
     }
 
 }

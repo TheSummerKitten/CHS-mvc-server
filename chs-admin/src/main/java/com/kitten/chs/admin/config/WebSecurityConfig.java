@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 .mvcMatchers("/admin/**").authenticated() // 认证所有以 /admin 为前缀的 URL 资源
                 .mvcMatchers("/doctor/**").authenticated()
+                .mvcMatchers("/ws/**").permitAll()
                 .anyRequest().permitAll() // 其他都需要放行，无需认证
                 .and()
                 .httpBasic().authenticationEntryPoint(authEntryPoint) // 处理用户未登录访问受保护的资源的情况

@@ -10,6 +10,8 @@ import com.kitten.chs.common.domain.mapper.OrderItemMapper;
 import com.kitten.chs.common.domain.mapper.OrderMapper;
 import com.kitten.chs.common.domain.mapper.UserMapper;
 import com.kitten.chs.common.utils.Response;
+import com.kitten.chs.admin.websocket.NotificationMessage;
+import com.kitten.chs.admin.websocket.WebSocketNotificationServer;
 import com.kitten.chs.web.model.req.CreateOrderReqVO;
 import com.kitten.chs.web.model.rsp.FindUserOrderListRespVO;
 import com.kitten.chs.web.model.rsp.MonthlyConsumptionRspVO;
@@ -45,6 +47,9 @@ public class UserOrderServiceImpl implements UserOrderService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private WebSocketNotificationServer webSocketNotificationServer;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -121,6 +126,17 @@ public class UserOrderServiceImpl implements UserOrderService {
         for (OrderItemDO orderItem : orderItems) {
             orderItem.setOrderId(orderDO.getId());
             orderItemMapper.insert(orderItem);
+        }
+
+        try {
+            NotificationMessage notification = NotificationMessage.of(
+                    NotificationMessage.TYPE_NEW_ORDER,
+                    "新订单提醒",
+                    "用户 " + username + " 提交了新订单 " + orderNo + "，金额 ¥" + totalAmount,
+                    orderDO.getId(), orderNo);
+            webSocketNotificationServer.sendToUser("kitten", notification);
+        } catch (Exception e) {
+            log.error("发送新订单通知失败: orderNo={}", orderNo, e);
         }
 
         return Response.success("下单成功");
